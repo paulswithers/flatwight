@@ -8,7 +8,7 @@ const defaultLinks = [
 	"Members",
 	"Upcoming Events",
 	"Gallery",
-	"Testimonials",
+	// "Testimonials",
 	"Contact"
 ];
 
