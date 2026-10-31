@@ -1,0 +1,16 @@
+{
+  "name": "flatwight (Vite)",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:latest",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  },
+  "forwardPorts": [5173],
+  "postCreateCommand": "npm install",
+  "remoteUser": "root",
+  "workspaceFolder": "/workspaces/flatwight"
+}
