@@ -127,7 +127,7 @@ stylesheet.replaceSync(`
 `);
 
 const events = [
-    { title: "A \"Flat\" Wight Christmas", date: "2026-12-23T19:30", dateLabel: "Wednesday 23rd December 2026 19:30", location: "Chine Inn, Shanklin" },
+    { title: "A Flat Wight Christmas", date: "2026-12-23T19:30", dateLabel: "Wednesday 23rd December 2026 19:30", location: "Chine Inn, Shanklin" },
 ]
 
 class EventsPage extends HTMLElement {
