@@ -126,9 +126,11 @@ stylesheet.replaceSync(`
     }
 `);
 
-const events = [
-    { title: "A Flat Wight Christmas", date: "2026-12-23T19:30", dateLabel: "Wednesday 23rd December 2026 19:30", location: "Chine Inn, Shanklin" },
-]
+const getEventsUrl = () => {
+    const url = new URL('data/events.json', window.location.href);
+    url.searchParams.set('v', new Date().toISOString().slice(0, 10));
+    return url.toString();
+};
 
 class EventsPage extends HTMLElement {
     constructor() {
@@ -139,9 +141,21 @@ class EventsPage extends HTMLElement {
 
     connectedCallback() {
         this.render();
+        this.loadEvents();
     }
 
-    render() {
+    async loadEvents() {
+        try {
+            const response = await fetch(getEventsUrl(), { cache: 'no-store' });
+            if (!response.ok) throw new Error('Failed to load events');
+            const events = await response.json();
+            this.render(events);
+        } catch (error) {
+            this.render([]);
+        }
+    }
+
+    render(events = []) {
         this.root.innerHTML = `
             <h2>Events</h2>
             <div class="scroll-layout">
@@ -149,15 +163,19 @@ class EventsPage extends HTMLElement {
                     <ul class="content">
                         ${events.map(event => `
                             <li>
-                                ${event.img
-                                    ? `<img src="${event.img}" alt="${event.alt}" />`
-                                    : `<article class="event-details">
-                                        ${event.title ? `<h3>${event.title}</h3>` : ""}
-                                        ${event.date ? `<time datetime="${event.date}">${event.dateLabel || event.date}</time>` : ""}
-                                        ${event.location ? `<p>${event.location}</p>` : ""}
-                                    </article>`}
+                                <article class="event-details">
+                                    ${event.title ? `<h3>${event.title}</h3>` : ""}
+                                    ${event.date ? `<time datetime="${event.date}">${event.dateLabel || event.date}</time>` : ""}
+                                    ${event.location ? `<p>${event.location}</p>` : ""}
+                                </article>
                             </li>
-                        `).join('')}
+                        `).join('') || `
+                            <li>
+                                <article class="event-details">
+                                    <h3>No upcoming events</h3>
+                                </article>
+                            </li>
+                        `}
                     </ul>
                 </div>
             </div>
