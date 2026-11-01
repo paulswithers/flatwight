@@ -56,7 +56,7 @@ class AboutPage extends HTMLElement {
             <div class="aboutImg" alt="Flat Wight"></div>
             <h2>About Us</h2>
             <p>We are Flat Wight, an 
-                <inline-popover label="acapella">A close-harmony singing group that performs without instrumental accompaniment.</inline-popover>
+                <inline-popover label="acapella">A close-harmony singing group that<br/>performs without instrumental accompaniment.</inline-popover>
              show group performing across the Isle of Wight. We sing at open mics, care homes, weddings, and other events.
               We all have many years experience in choirs on the island and mainland, socially and competitively.</p>
             <p>Our repertoire covers a variety of popular music including well-known acapella songs like "Only You" and "Caravan of Love" 
