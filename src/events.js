@@ -1,14 +1,13 @@
+import { addCarouselControls, carouselControlsStylesheet } from './carousel-controls.js';
+
 const stylesheet = new CSSStyleSheet();
 stylesheet.replaceSync(`
     :host { display: block; width: 100%; font-family: inherit; }
     .scroll-layout {
         margin: 20px 50px;
         display: grid;
-        grid-template-areas:
-        "scroll scroll scroll"
-        "left markers right";
-        grid-template-columns: auto 1fr auto;
-        align-items: center;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
     }
     .content {
         display: flex;
@@ -39,8 +38,6 @@ stylesheet.replaceSync(`
     .carousel {
         overflow-x: auto;
         scroll-snap-type: x proximity;
-        scroll-marker-group: after;
-        grid-area: scroll;
         overscroll-behavior-x: contain;
         scrollbar-width: none;
         -ms-overflow-style: none;
@@ -54,58 +51,6 @@ stylesheet.replaceSync(`
         overflow: visible;
         flex: 0 0 min(320px, calc(100vw - 6rem));
         width: min(320px, calc(100vw - 6rem));
-    }
-    .carousel li::scroll-marker {
-        content: " ";
-        border: 1px solid var(--btn-background);
-        border-radius: 50%;
-        outline-offset: 4px;
-        -webkit-tap-highlight-color: transparent;
-        scroll-snap-align: center;
-    }
-    .carousel li::scroll-marker:is(:hover, :focus-visible) {
-        border-color: var(--link-hover);
-    }
-    .carousel li::scroll-marker:target-current {
-        background: var(--link-hover);
-        border-color: var(--link-hover);
-    }
-    .carousel::scroll-marker-group {
-        grid-area: markers;
-        display: grid;
-        place-content: center;
-        grid: 30px / auto-flow 30px;
-        gap: 15px;
-        padding: 15px;
-        scroll-padding: 15px;
-        overflow: auto;
-        overscroll-behavior-x: contain;
-        scrollbar-width: none;
-        scroll-snap-type: x mandatory;
-    }
-    .carousel::scroll-button(*) {
-        inline-size: 48px;
-        aspect-ratio: 1;
-        border-radius: 1e3px;
-        border: 2px solid #999;
-        margin: 5px;
-    }
-    .carousel::scroll-button(*):focus-visible {
-        outline-offset: 5px;
-    }
-    .carousel::scroll-button(*):not(:disabled):is(:hover, :active) {
-        background-color: Canvas;
-    }
-    .carousel::scroll-button(*):not(:disabled):active {
-        scale: 90%;
-    }
-    .carousel::scroll-button(left) {
-        content: "⬅" / "Scroll Left";
-        grid-area: left;
-    }
-    .carousel::scroll-button(right) {
-        content: "⮕" / "Scroll Right";
-        grid-area: right;
     }
     .carousel img {
         height: 250px;
@@ -136,7 +81,7 @@ class EventsPage extends HTMLElement {
     constructor() {
         super();
         this.root = this.attachShadow({ mode: "open" });
-        this.root.adoptedStyleSheets = [stylesheet];
+        this.root.adoptedStyleSheets = [stylesheet, carouselControlsStylesheet];
     }
 
     connectedCallback() {
@@ -180,6 +125,7 @@ class EventsPage extends HTMLElement {
                 </div>
             </div>
         `;
+        addCarouselControls(this.root.querySelector('.carousel'));
     }
 }
 
