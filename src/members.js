@@ -124,7 +124,7 @@ const members = [
     { name: "Mark Davis", role: "Bass, Lead", img: "/assets/members/Default.jpg" },
     { name: "Paul Gardner", role: "Tenor, Lead, Bass", img: "/assets/members/Paul.jpg" },
     { name: "Paul Withers", role: "Bass, Lead, Baritone", img: "/assets/members/PaulWithers.jpg" },
-    { name: "Ralph Brindley", role: "Baritone, Tenor, Lead", img: "/assets/members/Default.jpg" },
+    { name: "Ralph Brindley", role: "Baritone, Tenor, Lead", img: "/assets/members/Ralph.jpg" },
     { name: "Simon Bligh", role: "Lead", img: "/assets/members/Default.jpg" },
 ]
 
